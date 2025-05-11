@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Dia das Mães!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
+      color: #444;
+    }
+
+    header {
+      background: #fff;
+      color: #e91e63;
+      text-align: center;
+      padding: 60px 20px 40px;
+      border-bottom: 4px dashed #e91e63;
+    }
+
+    header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #c2185b;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-left: 8px solid #f48fb1;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      padding: 30px;
+      margin: 30px 0;
+      animation: fadeIn 1s ease;
+    }
+
+    .gallery-slider {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .gallery-slider img {
+      width: 100%;
+      max-height: 400px;
+      border-radius: 12px;
+    }
+
+    .slider-buttons {
+      margin-top: 10px;
+    }
+
+    .slider-buttons button {
+      background: #f06292;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .reasons li {
+      margin-bottom: 10px;
+      list-style: "❤️ ";
+    }
+
+    .puzzle img {
+      width: 200px;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+
+    .puzzle img:hover {
+      transform: scale(1.05);
+    }
+
+    .secret button {
+      background: linear-gradient(to right, #f06292, #ec407a);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin: 8px 0;
+      font-weight: bold;
+    }
+
+    .secret p {
+      display: none;
+      background: #fce4ec;
+      padding: 10px;
+      border-left: 4px solid #ec407a;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    canvas {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+
+  .dark {
+  background: linear-gradient(to bottom right, #2b2b2b, #1a1a1a);
+  color: #eee;
+}
+
+.dark header {
+  background: #333;
+  color: #ff80ab;
+  border-bottom-color: #ff80ab;
+}
+
+.dark .card {
+  background: rgba(50, 50, 50, 0.95);
+  border-left-color: #f48fb1;
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.05);
+}
+
+.dark .slider-buttons button,
+.dark .secret button {
+  background: #ad1457;
+}
+
+.dark .reasons li {
+  list-style: "🌸 ";
+}
+
+.dark .secret p {
+  background: #4a4a4a;
+  border-left-color: #ff80ab;
+}
+
+.dark button {
+  background: #ff4081;
+  color: white;
+}
+
+.present-box {
+  font-size: 60px;
+  cursor: pointer;
+  transition: transform 0.4s;
+  text-align: center;
+}
+
+.present-box:hover {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.surpresa {
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+  animation: aparecer 1s ease forwards;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bloom {
+  0% { transform: scale(0) rotate(0deg); opacity: 0; }
+  100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+
+.flor {
+  position: fixed;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  animation: bloom 4s ease forwards;
+  opacity: 0;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Feliz Dia das Mães!</h1>
+    <p>Um presente digital feito com muito amor ❤️</p>
+  </header>
+
+  <button onclick="toggleTheme()">🌓</button>
+
+  <section>
+    <div class="card">
+      <h2>1. Cartão Interativo</h2>
+      <p>Mãe, você é a razão do meu sorriso todos os dias. Te amo infinitamente!</p>
+    </div>
+
+    <div class="card">
+      <h2>2. Galeria de Fotos</h2>
+      <div class="gallery-slider">
+        <img id="galleryImage" src="Eu.JPG" alt="Galeria de Fotos">
+        <div class="slider-buttons">
+          <button onclick="changeImage(-1)">⬅️</button>
+          <button onclick="changeImage(1)">➡️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3. Motivos pelos quais eu te amo</h2>
+      <ul class="reasons">
+        <li>Seu abraço cura qualquer dor.</li>
+        <li>Você acredita em mim mesmo quando eu duvido.</li>
+        <li>Seu sorriso ilumina minha vida.</li>
+        <li>Você é minha melhor amiga.</li>
+        <li>Você me ensinou o que é amor verdadeiro.</li>
+      </ul>
+    </div>
+
+    <div class="card puzzle">
+      <h2>4. Quebra-cabeça simples</h2>
+      <p></p>
+      <img id="puzzlePiece" src="vó.jpeg" alt="Quebra-cabeça">
+    </div>
+
+    <div class="card secret">
+      <h2>5. Caixa de Mensagens Secretas</h2>
+      <button onclick="revealMessage(0)">Mostrar mensagem 1</button>
+      <p id="msg0">Você é meu maior exemplo.</p>
+      <button onclick="revealMessage(1)">Mostrar mensagem 2</button>
+      <p id="msg1">Amo você do fundo do meu coração.</p>
+      <button onclick="revealMessage(2)">Mostrar mensagem 3</button>
+      <p id="msg2">Obrigada por tudo, mãe!</p>
+    </div>
+
+    <div id="typewriter" class="card"></div>
+
+    <div class="card">
+      <h2>Frase do Coração 💌</h2>
+      <p id="fraseCarinho">Clique no botão para uma frase!</p>
+      <button onclick="novaFrase()">Clique aqui!</button>
+    </div>
+
+    <div class="card">
+  <h2>6. Clique no Presente 🎁</h2>
+  <div class="present-box" onclick="abrirPresente()">
+    🎁
+  </div>
+  <div id="surpresa" class="surpresa">
+    <p>Mãe,
+
+Hoje é o seu dia — mas a verdade é que todos os dias têm um pedacinho seu.
+
+Seu amor preenche silêncios, cura machucados invisíveis, acalma tempestades. Seu abraço é meu refúgio mais seguro, sua voz é melodia de cuidado, sua força me inspira mesmo nos meus dias mais frágeis.
+
+Cada memória nossa é um tesouro guardado no coração. Cada riso compartilhado, cada conselho, cada “eu te amo” sussurrado ou gritado — tudo isso construiu quem eu sou.
+
+Se eu pudesse te dar o mundo, ainda seria pouco perto do que você merece.
+
+Obrigado por ser minha mãe, minha casa, meu amor sem fim.
+
+Te amo mais do que qualquer palavra possa dizer.
+
+Com todo meu amor,
+
+Ass: João Pedro 🤗💝</p>
+  </div>
+  </div>
+
+  <div class="card">
+  <h2>7. Ouça minha mensagem 💖</h2>
+    <audio controls>
+        <source src="mensagem.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+  </div>
+
+  <div class="card">
+        <h2>8. Pinte com amor 🎨</h2>
+        <canvas id="canvas" width="300" height="300" style="border:1px solid #ccc; border-radius: 10px;"></canvas>
+  </div>
+
+  <div class="card">
+  <h2>10. Quiz do Amor 💘</h2>
+  <p id="perguntaQuiz">Qual dessas frases você mais fala?</p>
+  <button onclick="respostaQuiz('A')">A) Vai com Deus</button><br>
+  <button onclick="respostaQuiz('B')">B) Leva um casaco!</button><br>
+  <button onclick="respostaQuiz('C')">C) Te amo muito</button><br>
+  <p id="resultadoQuiz" style="margin-top: 10px; font-weight: bold;"></p>
+</div>
+
+  </section>
+
+  <script>
+    function revealMessage(index) {
+      document.getElementById('msg' + index).style.display = 'block';
+    }
+
+    const puzzleImages = [
+      "vó.jpeg",
+      "vo2.jpeg",
+      "vo3.jpeg",
+      "vo4.jpeg",
+      "vo5.jpeg",
+      "vo6.jpeg",
+      "vo7.jpeg",
+      "vo8.jpeg",
+      "vo9.jpeg",
+    ];
+    let currentPuzzle = 0;
+    const puzzle = document.getElementById('puzzlePiece');
+    puzzle.addEventListener('click', () => {
+      currentPuzzle = (currentPuzzle + 1) % puzzleImages.length;
+      puzzle.src = puzzleImages[currentPuzzle];
+    });
+
+    const hearts = document.createElement("style");
+    hearts.innerHTML = `
+      .heart {
+        position: fixed;
+        top: -50px;
+        color: #e91e63;
+        font-size: 24px;
+        animation: fall 5s linear infinite;
+      }
+
+      @keyframes fall {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(100vh); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(hearts);
+
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.textContent = "❤️";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }, 300);
+
+    const message = "Te amo para sempre, mãe! 💕";
+    let i = 0;
+    function type() {
+      if (i < message.length) {
+        document.getElementById("typewriter").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(type, 100);
+      }
+    }
+    window.onload = type;
+
+    const frases = [
+      "Você é meu porto seguro.",
+      "Te amo mais do que palavras podem dizer.",
+      "Você merece o mundo inteiro.",
+      "Obrigado por nunca desistir de mim.",
+      "Com você, tudo fica melhor!"
+    ];
+    function novaFrase() {
+      const i = Math.floor(Math.random() * frases.length);
+      document.getElementById('fraseCarinho').textContent = frases[i];
+    }
+
+    const galleryImages = [
+      "Eu.JPG",
+      "mae2.gif",
+      "mae3.jpeg",
+      "aaaa.png",
+      "a.png",
+      "mae7.gif",
+    ];
+    let currentImage = 0;
+    function changeImage(direction) {
+      currentImage += direction;
+      if (currentImage < 0) currentImage = galleryImages.length - 1;
+      if (currentImage >= galleryImages.length) currentImage = 0;
+      document.getElementById("galleryImage").src = galleryImages[currentImage];
+    }
+
+        function toggleTheme() {
+        document.body.classList.toggle('dark');
+    }
+
+        function abrirPresente() {
+        document.getElementById("surpresa").style.display = "block";
+    }
+
+    const flores = ["🌸", "🌼", "🌺", "🌻"];
+
+    setInterval(() => {
+    const flor = document.createElement("div");
+    flor.className = "flor";
+    flor.textContent = flores[Math.floor(Math.random() * flores.length)];
+    flor.style.left = Math.random() * 100 + "vw";
+    flor.style.animationDuration = (3 + Math.random() * 2) + "s";
+    flor.style.fontSize = (20 + Math.random() * 20) + "px";
+    document.body.appendChild(flor);
+    setTimeout(() => flor.remove(), 5000);
+    }, 1000);
+
+        const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let desenhando = false;
+
+   function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  if (e.touches) {
+    return {
+      x: e.touches[0].clientX - rect.left,
+      y: e.touches[0].clientY - rect.top
+    };
+  } else {
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+  }
+}
+
+function desenhar(e) {
+  if (!desenhando) return;
+  e.preventDefault(); // evita scroll ao desenhar
+  const pos = getPos(e);
+  ctx.fillStyle = "#ec407a";
+  ctx.beginPath();
+  ctx.arc(pos.x, pos.y, 4, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+canvas.addEventListener('mousedown', () => desenhando = true);
+canvas.addEventListener('mouseup', () => desenhando = false);
+canvas.addEventListener('mousemove', desenhar);
+
+canvas.addEventListener('touchstart', () => desenhando = true, { passive: false });
+canvas.addEventListener('touchend', () => desenhando = false);
+canvas.addEventListener('touchcancel', () => desenhando = false);
+canvas.addEventListener('touchmove', desenhar, { passive: false });
+
+    
+        function respostaQuiz(resposta) {
+    let texto;
+    switch (resposta) {
+        case 'A':
+        texto = "💬 Clássico de mãe carinhosa! Você acertou.";
+        break;
+        case 'B':
+        texto = "🧥 Sempre se preocupando, né? Isso é amor.";
+        break;
+        case 'C':
+        texto = "💖 Essa é a sua assinatura! Perfeita!";
+        break;
+    }
+    document.getElementById('resultadoQuiz').textContent = texto;
+    }
+  </script>
+</body>
+</html>
